@@ -7,3 +7,7 @@ evidencias.log
 .vscode/
 *.swp
 .DS_Store
+
+# fixtures do professor (uso local, nao precisa submeter)
+tests/
+BACKING_STORE.bin
