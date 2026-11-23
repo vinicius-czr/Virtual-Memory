@@ -1,5 +1,3 @@
-/* getline()/ssize_t sao extensoes POSIX, nao fazem parte do C11 puro;
- * precisamos declarar isso antes de qualquer #include. */
 #define _POSIX_C_SOURCE 200809L
 
 #include <ctype.h>
@@ -14,9 +12,6 @@
 
 #define INITIAL_CAPACITY 1024
 
-/* Valida que 'line' contem apenas um inteiro (sem sinal) em decimal,
- * ignorando espacos em branco nas pontas. Preenche *value em caso de
- * sucesso. */
 static int parse_single_integer(const char *line, long *value) {
     char *endptr;
 

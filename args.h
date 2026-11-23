@@ -9,9 +9,6 @@ typedef struct {
     replacement_algo_t tlb_algo;
 } cli_args_t;
 
-/* Retorna 0 e preenche *out em caso de sucesso.
- * Retorna -1 em caso de erro, ja tendo impresso uma mensagem coerente
- * em stderr (encerrar a execucao e' responsabilidade do chamador). */
 int parse_args(int argc, char *argv[], cli_args_t *out);
 
-#endif /* ARGS_H */
+#endif 

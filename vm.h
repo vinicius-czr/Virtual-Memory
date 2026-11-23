@@ -14,4 +14,4 @@ typedef enum {
     ALGO_LRU
 } replacement_algo_t;
 
-#endif /* VM_H */
+#endif 
