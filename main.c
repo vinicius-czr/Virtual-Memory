@@ -5,8 +5,6 @@
 #include "page_table.h"
 #include "vm.h"
 
-#define NUM_FRAMES_DAY1 PAGE_TABLE_ENTRIES
-
 int main(int argc, char *argv[]) {
     cli_args_t cli;
     if (parse_args(argc, argv, &cli) != 0) {
@@ -19,7 +17,7 @@ int main(int argc, char *argv[]) {
     }
 
     page_table_t pt;
-    if (page_table_init(&pt, NUM_FRAMES_DAY1, BACKING_STORE_FILE) != 0) {
+    if (page_table_init(&pt, cli.page_algo, BACKING_STORE_FILE) != 0) {
         free_addresses(&addresses);
         return 1;
     }

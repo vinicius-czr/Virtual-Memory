@@ -5,17 +5,26 @@
 
 #include "vm.h"
 
+#define NUM_FRAMES 128 
+
 typedef struct {
     int frame_of_page[PAGE_TABLE_ENTRIES]; 
+    int page_of_frame[NUM_FRAMES];         
     unsigned char *physical_memory;        
-    int num_frames;
-    int next_free_frame;
     FILE *backing_store;
+
+    replacement_algo_t algo;
+
+    int fifo_next_victim;
+
+    long clock;
+    long last_used[NUM_FRAMES];
+
+    int frames_used;
     long page_faults;
 } page_table_t;
 
-int page_table_init(page_table_t *pt, int num_frames, const char *backing_store_path);
-
+int page_table_init(page_table_t *pt, replacement_algo_t algo, const char *backing_store_path);
 void page_table_destroy(page_table_t *pt);
 
 int translate_address(page_table_t *pt, int virtual_address,
