@@ -52,8 +52,6 @@ static int pick_victim_frame(page_table_t *pt) {
         pt->fifo_next_victim = (pt->fifo_next_victim + 1) % NUM_FRAMES;
         return frame;
     }
-
-
     int victim = 0;
     for (int i = 1; i < NUM_FRAMES; i++) {
         if (pt->last_used[i] < pt->last_used[victim]) {
@@ -93,13 +91,7 @@ static int load_page_into_frame(page_table_t *pt, int page_number) {
     return frame;
 }
 
-int translate_address(page_table_t *pt, int virtual_address,
-                       int *out_physical_address, int *out_value) {
-    int page_number = virtual_address / PAGE_SIZE;
-    int offset = virtual_address % PAGE_SIZE;
-
-    pt->clock++;
-
+int page_table_resolve_frame(page_table_t *pt, int page_number) {
     int frame = pt->frame_of_page[page_number];
     if (frame == -1) {
         frame = load_page_into_frame(pt, page_number);
@@ -107,11 +99,12 @@ int translate_address(page_table_t *pt, int virtual_address,
             return -1;
         }
     }
-
+    pt->clock++;
     pt->last_used[frame] = pt->clock;
+    return frame;
+}
 
-    int physical_address = frame * PAGE_SIZE + offset;
-    *out_physical_address = physical_address;
-    *out_value = (int)(signed char)pt->physical_memory[physical_address];
-    return 0;
+void page_table_touch(page_table_t *pt, int frame) {
+    pt->clock++;
+    pt->last_used[frame] = pt->clock;
 }
