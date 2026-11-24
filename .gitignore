@@ -11,3 +11,6 @@ saida.txt
 # fixtures do professor (uso local, nao precisa submeter)
 tests/
 BACKING_STORE.bin
+# saida gerada pelo programa / copia local do gabarito (nao sao codigo)
+correct.txt
+gabarito.txt
